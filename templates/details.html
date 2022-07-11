@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}{{user.first_name}}{% endblock %}
+
+{% block body %}
+
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-sm-2 col-6">
+            <img src="{{ user.image_url }}"
+                 alt="{{ user.first_name }} {{ user.last_name }}"
+                 class="img-fluid">
+        </div>
+        <div class="col-sm-10 col-12">
+            <h1 class="display-1">{{user.get_full_name()}}</h1>
+            <br>
+            <form action="">
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <a href="/users/{{user.id}}/edit" class="btn btn-warning active" role="button" aria-pressed="true">Edit</a>
+                    <a href="/users/{{user.id}}/delete" class="btn btn-danger active" role="button" aria-pressed="true">Delete Me</a>
+                    <a href="/users" class="btn btn-primary active" role="button" aria-pressed="true">Go Back</a>
+                </div>
+            </form>
+        </div>
+        
+    </div>
+    <br>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere asperiores maxime nisi libero quos culpa animi perspiciatis similique. Sequi velit officia eaque! Quae voluptas nisi voluptates deleniti placeat soluta sapiente?</p>
+
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere asperiores maxime nisi libero quos culpa animi perspiciatis similique. Sequi velit officia eaque! Quae voluptas nisi voluptates deleniti placeat soluta sapiente?</p>
+
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere asperiores maxime nisi libero quos culpa animi perspiciatis similique. Sequi velit officia eaque! Quae voluptas nisi voluptates deleniti placeat soluta sapiente?</p>
+
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere asperiores maxime nisi libero quos culpa animi perspiciatis similique. Sequi velit officia eaque! Quae voluptas nisi voluptates deleniti placeat soluta sapiente?</p>
+
+</div>
+
+
+{% endblock %}
+
+  
