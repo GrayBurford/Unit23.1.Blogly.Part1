@@ -1,8 +1,7 @@
 """Blogly application."""
 
-from multiprocessing.reduction import sendfds
 from flask import Flask, request, render_template, redirect
-from models import db, connect_db, User
+from models import db, connect_db, User, Post
 from flask_debugtoolbar import DebugToolbarExtension
 
 app = Flask(__name__)
@@ -53,12 +52,13 @@ def create_user_submition():
 
     return redirect('/users')
 
-@app.route('/users/<int:user_id>', methods=['GET'])
+@app.route('/users/<int:user_id>', methods=['GET', 'POST'])
 def show_user_details(user_id):
     """Display a single user's details"""
 
     user = User.query.get_or_404(user_id)
-    return render_template("details.html", user=user)
+    posts = Post.query.all()
+    return render_template("details.html", user=user, posts=posts)
 
 @app.route('/users/<int:user_id>/edit', methods=['GET'])
 def edit_page(user_id):
@@ -91,32 +91,64 @@ def delete_user(user_id):
 
     return redirect('/users')
 
-# MAKE ROUTES FOR THE FOLLOWING:
+######### POSTS ########
 
-# 1. GET /
-# Redirect to list of users. (We’ll fix this in a later step).
+@app.route('/users/<int:user_id>/posts/new')
+def create_new_post(user_id):
+    """Show form for user to create new post."""
 
-# 2. GET /users
-# Show all users.
-# Make these links to view the detail page for the user.
-# Have a link here to the add-user form.
+    user = User.query.get_or_404(user_id)
+    return render_template('new_post_form.html', user=user)
 
-# 3. GET /users/new
-# Show an add form for users.
+@app.route('/users/<int:user_id>/posts/new', methods=["POST"])
+def handle_new_post(user_id):
+    """Handle form submission to create new post."""
 
-# 4. POST /users/new
-# Process the add form, adding a new user and going back to /users
+    user = User.query.get_or_404(user_id)
+    new_title = request.form['title']
+    new_body = request.form['text']
+    new_post = Post(title=new_title, content=new_body, user_id=user.id)
 
-# 5. GET /users/[user-id]
-# Show information about the given user.
-# Have a button to get to their edit page, and to delete the user.
+    db.session.add(new_post)
+    db.session.commit()
 
-# 6. GET /users/[user-id]/edit
-# Show the edit page for a user.
-# Have a cancel button that returns to the detail page for a user, and a save button that updates the user.
+    return redirect(f"/users/{user_id}")
 
-# 7. POST /users/[user-id]/edit
-# Process the edit form, returning the user to the /users page.
+@app.route("/posts/<int:post_id>")
+def show_posts(post_id):
+    """Display a specific post page."""
 
-# 8. POST /users/[user-id]/delete
-# Delete the user.
+    post = Post.query.get_or_404(post_id)
+
+    return render_template('show_post.html', post=post)
+
+@app.route("/posts/<int:post_id>/edit")
+def show_post_edit(post_id):
+    """Display edit form for a specific user's post"""
+
+    post = Post.query.get_or_404(post_id)
+    return render_template('edit_post.html', post=post)
+
+@app.route("/posts/<int:post_id>/edit", methods=['POST'])
+def handle_post_eddit(post_id):
+    """Handle form submission for editing a user's post"""
+
+    post = Post.query.get_or_404(post_id)
+    post.title = request.form['title']
+    post.content = request.form['content']
+
+    db.session.add(post)
+    db.session.commit()
+
+    return redirect(f"/users/{post.user_id}")
+
+@app.route("/posts/<int:post_id>/delete", methods=['POST'])
+def delete_post(post_id):
+    """Handle button submit for deleting a post"""
+
+    post = Post.query.get_or_404(post_id)
+    
+    db.session.delete(post)
+    db.session.commit()
+
+    return redirect(f"/users/{post.user_id}")

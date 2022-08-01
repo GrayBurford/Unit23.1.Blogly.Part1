@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}Editting: {{post.title}}{% endblock %}
+
+{% block body %}
+
+<h1 class="display-4">Editting Post: <small>{{post.title}}</small></h1>
+<h1 class="display-6"><small>Created by: <i>{{post.users.get_full_name()}}</i></small></h1>
+
+<div class="container-fluid">
+    <form action="/posts/{{post.id}}/edit" method="POST">
+        <div class="form-group">
+            <label for="title">Title:</label>
+            <input type="text" class="form-control" id="title" name='title' value="{{post.title}}" required>
+            <small id="" class="form-text text-muted">(required)</small>
+        </div>
+        <br>
+        <div class="form-group">
+            <label for="LastNameInput">Body content:</label>
+            <input type="text" class="form-control" id="content" name="content" value="{{post.content}}" required>
+            <small id="" class="form-text text-muted">(required)</small>
+        </div>
+        <br>
+        <a href="/users/{{post.user_id}}" class="btn btn-primary active" role="button" aria-pressed="true">Go Back</a>
+        <button type="submit" class="btn btn-success">Confirm Edit</button>
+    </form>
+</div>
+
+{% endblock %}

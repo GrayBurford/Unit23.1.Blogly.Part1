@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}New Post{% endblock %}
+
+{% block body %}
+
+<h1 class="display-4">Add new post for: {{user.get_full_name()}}</h1>
+
+<div class="container-fluid">
+
+    <form action="/users/{{user.id}}/posts/new" method="POST">
+
+        <div class="form-group">
+            <label for="title">Title:</label>
+            <input type="text" class="form-control" id="title" name='title' placeholder="Enter unique title" required>
+            <small class="form-text text-muted">(Title is required)</small>
+        </div>
+
+        <br>
+
+        <div class="form-group">
+            <label for="text">Text Body:</label>
+            <input type="text" class="form-control" id="text" name="text" placeholder="Enter body content" required>
+            <small class="form-text text-muted">(A body is also required)</small>
+        </div>
+        <br>
+        <a href="/users/{{user.id}}" class="btn btn-primary">Go back</a>
+        <button type="submit" class="btn btn-success">Add Your Post!</button>
+
+    </form>
+</div>
+
+
+{% endblock %}

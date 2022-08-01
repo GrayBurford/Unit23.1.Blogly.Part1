@@ -6,16 +6,9 @@
 
 <div class="container-fluid">
 
-    <h1 class="display-3">List of Users</h1>
+    <h1 class="display-3">List of Users:</h1>
 
     <br>
-
-    <ul>
-        {% for val in my_list %}
-        <li>{{val}}</li>
-        {% endfor %}
-    </ul>
-
     <ul>
         {% for user in all_users %}
         <li><a href="/users/{{user.id}}">{{user.get_full_name()}}</a></li>
