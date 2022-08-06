@@ -1,6 +1,6 @@
 """Sample data to populate User and Post tables in Blogly database."""
 
-from models import db, User, Post
+from models import db, User, Post, Tag, PostTag
 from app import app
 
 # Drop all and recreate all tables
@@ -32,4 +32,13 @@ post2 = Post(title="A Song of Ice and Fire", content="HISTORY, PURPOSE AND USAGE
 post3 = Post(title="Testing123", content="Test test test", user_id=1)
 
 db.session.add_all([post1, post2, post3])
+db.session.commit()
+
+
+# Add some sample Tags
+tag1 = Tag(name='Bouldering')
+tag2 = Tag(name='Lead')
+tag3 = Tag(name='Trad')
+
+db.session.add_all([tag1, tag2, tag3])
 db.session.commit()

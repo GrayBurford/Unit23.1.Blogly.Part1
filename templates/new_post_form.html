@@ -23,7 +23,22 @@
             <input type="text" class="form-control" id="text" name="text" placeholder="Enter body content" required>
             <small class="form-text text-muted">(A body is also required)</small>
         </div>
+
         <br>
+        <div class="display-6">Choose this post's tags:</div>
+        <div class="row-mb-6 mx-auto mt-3">            
+              {% for tag in tags %}  
+              <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                <label class="btn btn-danger">
+                    <input type="checkbox" id="{{tag.id}}" value="{{tag.id}}" name="tags" autocomplete="off"> {{tag.name}}
+                </label>
+                </div>
+              {% endfor %}            
+          </div>
+                     
+        <br>
+        <br>
+
         <a href="/users/{{user.id}}" class="btn btn-primary">Go back</a>
         <button type="submit" class="btn btn-success">Add Your Post!</button>
 

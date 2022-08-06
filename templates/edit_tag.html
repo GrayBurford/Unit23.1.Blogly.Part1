@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit {{tag.name}}{% endblock %}
+
+{% block body %}
+
+<div class="container-fluid">
+
+    <h1 class="display-6">Editing tag: {{tag.name}}</h1>
+
+    <form action="/tags/{{tag.id}}/edit" method="POST">
+        <div class="form-group">
+            <label for="name">Tag name:</label>
+            <input type="text" class="form-control" id="name" name='name' placeholder="{{tag.name}}" required>
+            <small id="" class="form-text text-muted">(required)</small>
+        </div>
+        <br>
+        <a href="/tags/{{tag.id}}" class="btn btn-secondary active" role="button" aria-pressed="true">Cancel Edit and Go Back</a>
+        <button type="submit" class="btn btn-success">Save Changes</button>
+
+    </form>
+    
+
+</div>
+
+{% endblock %}

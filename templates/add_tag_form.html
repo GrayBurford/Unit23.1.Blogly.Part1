@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Add Tag{% endblock %}
+
+{% block body %}
+
+<h1 class="display-4">Add new tag to Blogly app</h1>
+
+<div class="container-fluid">
+
+    <form action="/tags/new" method="POST">
+
+        <div class="form-group">
+            <label for="title">Tag name:</label>
+            <input type="text" class="form-control" id="tag" name='tag' placeholder="Enter unique tag name" required>
+            <small class="form-text text-muted">(This is required)</small>
+        </div>
+        <br>
+        <a href="/tags" class="btn btn-primary">Back to tags</a>
+        <button type="submit" class="btn btn-success">Add this Tag!</button>
+
+    </form>
+</div>
+
+{% endblock %}

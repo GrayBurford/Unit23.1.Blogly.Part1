@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}List of Tags{% endblock %}
+
+{% block body %}
+
+<div class="container-fluid">
+    <div class="col-sm-10 col-12">
+        <h1 class="display-1">List of tags</h1>
+        <br>
+        <h1 class="display-6">Click a tag for more info & options:</h1>
+        <form action="">
+            <div class="btn-group-sm" role="group" aria-label="Basic example">
+                {% for tag in tags %}
+                <a href="/tags/{{tag.id}}" class="btn btn-outline-danger active" role="button" aria-pressed="true">{{tag.name}}</a>
+                {% endfor %}
+            </div>
+        </form>
+        <br>
+        <a href="/tags/new" class="btn btn-outline-primary">Add a new tag</a>
+        <a href="/" class="btn btn-outline-primary">Back one page</a>
+    </div>
+</div>
+
+
+
+{% endblock %}
